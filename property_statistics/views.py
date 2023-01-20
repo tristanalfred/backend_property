@@ -57,7 +57,7 @@ class PropertyUrlViewSet(viewsets.ViewSet):
         # Search for Bienici's ad through the url
         try:
             response = requests.get(api_url + os.path.basename(id_property))
-        except Exception as e:
+        except Exception:
             return Response(status.HTTP_404_NOT_FOUND)
 
         if not response:
@@ -71,5 +71,5 @@ class PropertyUrlViewSet(viewsets.ViewSet):
         serializer = PropertySerializer(data=property_data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            return Response(status.HTTP_202_ACCEPTED)
+            return Response(status.HTTP_201_CREATED)
         return Response(status.HTTP_404_NOT_FOUND)
